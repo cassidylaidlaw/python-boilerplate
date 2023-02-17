@@ -1,0 +1,56 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - '**'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+
+      - name: Cache pip
+        uses: actions/cache@v1
+        with:
+          path: ~/.cache/pip # This path is specific to Ubuntu
+          # Look to see if there is a cache hit for the corresponding requirements file
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Install pip requirements
+        run: |
+          pip install --upgrade pip setuptools wheel
+          pip install -r requirements.txt
+          pip install --upgrade -r requirements_dev.txt
+
+      - name: Run flake8
+        run: flake8 my_package tests
+        if: ${{ always() }}
+
+      - name: Run black
+        run: black --check my_package tests
+        if: ${{ always() }}
+
+      - name: Run isort
+        run: isort --check --diff my_package tests
+        if: ${{ always() }}
+
+      - name: Check types
+        if: ${{ always() }}
+        run: |
+          mypy my_package tests
+      
+      - name: Run tests
+        if: ${{ always() }}
+        timeout-minutes: 10
+        run: |
+          pytest --log-cli-level=INFO

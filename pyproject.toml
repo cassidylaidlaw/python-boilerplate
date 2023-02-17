@@ -1,0 +1,15 @@
+[tool.black]
+line-length = 88
+target-version = ['py39']
+include = '\.pyi?$'
+exclude = ''
+
+[tool.pytest.ini_options]
+timeout = 60
+testpaths = ["tests"]
+markers = []
+
+[tool.isort]
+profile = "black"
+known_first_party = ["my_package"]
+known_third_party = ["ray", "torch"]

@@ -1,0 +1,7 @@
+black
+flake8
+pep8-naming
+mypy
+pytest
+pytest-timeout
+isort
