@@ -28,9 +28,7 @@ jobs:
 
       - name: Install pip requirements
         run: |
-          pip install --upgrade pip setuptools wheel
-          pip install -r requirements.txt
-          pip install --upgrade -r requirements_dev.txt
+          pip install --upgrade -e .[dev]
 
       - name: Run flake8
         run: flake8 my_package tests
