@@ -17,3 +17,7 @@ When commits are pushed to GitHub, they are checked with the [Flake8 linter](htt
     pip install --upgrade -e .[dev]
 
 Then, they can be run by `./lint.sh`. To run tests, run `pytest`.
+
+### Python version
+
+This repository is by default configured to target Python 3.9 and test in Python versions 3.8 to 3.10. To change the target Python version, modify the line `python_version = 3.9` in `mypy.ini` and the line `target-version = ['py39']` in `pyproject.toml` (under `[tool.black]`). To change the versions that are tested in the GitHub workflow, modify the line `python_version: ['3.8', '3.9', '3.10']` in `.github/workflows/ci.yml`.
