@@ -1,4 +1,4 @@
-# Python boilerplate repostiroy
+# Python boilerplate repository
 
 This repository contains boilerplate for a research repository with continuous integration using GitHub actions. To use this code for your own project, make sure to find-and-replace all places where `my_package` is used with your own package name.
 
